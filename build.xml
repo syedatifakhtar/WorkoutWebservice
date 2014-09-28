@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Workout Web Service" default="build" basedir=".">
+	<import file="common_build.xml"/>     
+	<echo message="ENV Home = ${env.CXF_HOME}"/>   
+    <property name="cxf.war.file.name" value="WorkoutWebservice"/>
+      <target name="war" depends="build">
+	  <cxfwar filename="${cxf.war.file.name}.war" webxml="webapp/WEB-INF/web.xml" />
+    </target>
+</project>
