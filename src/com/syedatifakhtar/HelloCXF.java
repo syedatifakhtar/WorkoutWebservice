@@ -3,10 +3,12 @@ package com.syedatifakhtar;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import com.syedatifakhtar.model.Event;
+
 @WebService
 interface HelloCXF {
 	
 	@WebMethod
-	String sayHello(String name);
+	Event findEvent(String id);
 
 }

@@ -2,12 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jaxrs="http://cxf.apache.org/jaxrs" 
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://cxf.apache.org/jaxrs
 	http://cxf.apache.org/schemas/jaxrs.xsd">
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   <property name="locations">
+    <list>
+         <value>classpath*:project.properties</value>
+    </list>
+  </property>
+</bean>
+
+	<bean id="jsonProvider" 
+		class="org.apache.cxf.jaxrs.provider.json.JSONProvider"/>
     
     <jaxrs:server id="HelloCXFRestService" address="/">
         <jaxrs:serviceBeans>
@@ -15,7 +26,12 @@
         </jaxrs:serviceBeans>
     </jaxrs:server>
     
-    <bean id="HelloService" class="com.syedatifakhtar.HelloCXFImpl"/>    
+    <bean id="eeeyanDao" class="com.syedatifakhtar.dao.EeeyanDAO"/>
+    
+    <bean id="HelloService" class="com.syedatifakhtar.HelloCXFImpl">
+        <property name="eeeyanDao" ref="eeeyanDao"></property>
+    </bean>    
+    
         <!--
                 This will automatically locate any and all property files you have
                 within your classpath, provided they fall under the META-INF
@@ -24,7 +40,6 @@
                 ${propertyKey}.
         -->
         
-        <!-- <context:property-placeholder location="classpath*:*.properties" />  -->
         
         
 </beans>
