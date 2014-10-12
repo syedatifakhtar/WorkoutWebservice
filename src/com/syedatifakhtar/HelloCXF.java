@@ -1,5 +1,7 @@
 package com.syedatifakhtar;
 
+import java.util.List;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -9,6 +11,11 @@ import com.syedatifakhtar.model.Event;
 interface HelloCXF {
 	
 	@WebMethod
-	Event findEvent(String id);
+	Event findEvent(int id);
 
+	@WebMethod
+	List<Event> listEvents();
+	
+	@WebMethod
+	void addEvent(Event event);
 }

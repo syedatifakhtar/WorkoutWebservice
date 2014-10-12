@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jaxrs="http://cxf.apache.org/jaxrs" 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://jax-ws.dev.java.net/spring/core
+    http://jax-ws.dev.java.net/spring/core.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 	http://cxf.apache.org/jaxrs
 	http://cxf.apache.org/schemas/jaxrs.xsd">
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
     
+            
+        <!-- Defines the base package for the Spring Annotater -->
+        <context:component-scan base-package="com.syedatifakhtar" />
+        
+        		  <!-- Activates annotation based transaction management -->
+		  <tx:annotation-driven transaction-manager="transactionManager"/>
+		  
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
    <property name="locations">
     <list>
@@ -19,6 +33,33 @@
 
 	<bean id="jsonProvider" 
 		class="org.apache.cxf.jaxrs.provider.json.JSONProvider"/>
+	
+	        <!-- Should have MySQL running on 3306 BIATTTCH! -->
+	        
+  	   <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	       <property name="url" value="jdbc:mysql://localhost:3306/event"/>
+	       <property name="username" value="root"/>
+	       <property name="password" value="root"/>
+	       <property name="validationQuery" value="SELECT 1"/>
+       </bean>
+       
+  	   		  	    <!-- Hibernate Session Factory -->
+		  <bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		    <property name="dataSource" ref="myDataSource"/>
+		    <property name="packagesToScan" value="com.syedatifakhtar"/>
+		    <property name="hibernateProperties">
+		      <value>
+		        hibernate.dialect=org.hibernate.dialect.MySQLDialect
+		        hbm2ddl.auto=create
+		      </value>
+		    </property>
+		  </bean>
+		   
+		  <!-- Hibernate Transaction Manager -->
+		  <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		    <property name="sessionFactory" ref="mySessionFactory"/>
+		  </bean>
     
     <jaxrs:server id="HelloCXFRestService" address="/">
         <jaxrs:serviceBeans>
@@ -39,7 +80,6 @@
                 then be used within application context files in the form of
                 ${propertyKey}.
         -->
-        
         
         
 </beans>

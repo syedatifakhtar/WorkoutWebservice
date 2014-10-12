@@ -2,16 +2,20 @@
     <info organisation="com.syedatifakhtar" module="WorkoutWebService"/>
     <dependencies>
     		<!--  WICKET DEPENDENCIES -->
-		<dependency org="org.apache.cxf" name = "cxf-rt-frontend-jaxws" rev="2.7.12"/>
-		<dependency org="org.apache.cxf" name = "cxf-rt-transports-http" rev="2.7.12"/>
+		<dependency org="org.apache.cxf" name = "cxf-rt-frontend-jaxws" rev="3.0.1"/>
+		<dependency org="org.apache.cxf" name = "cxf-rt-transports-http" rev="3.0.1"/>
+		<dependency org="org.springframework" name="spring-orm" rev="3.2.6.RELEASE" conf="*->default"/>
+		<dependency org="org.springframework" name="spring-core" rev="3.2.6.RELEASE" conf="*->default"/>
+		<dependency org="org.springframework" name="spring-web" rev="3.2.6.RELEASE" conf="*->default"/>
+		<dependency org="org.springframework" name="spring-aop" rev="3.2.6.RELEASE" conf="*->default"/>
 		<!-- <dependency org="org.apache.cxf" name = "cxf-rt-bindings-soap" rev="2.7.12"/> -->
-		<dependency org="org.apache.cxf" name = "cxf-rt-rs-extension-providers" rev="2.7.12"/>
+		<dependency org="org.apache.cxf" name = "cxf-rt-rs-extension-providers" rev="3.0.1"/>
 		<dependency org="junit" name = "junit" rev="4.11"/>
-		<!-- 
-		<dependency org="mysql" name = "mysql-connector-java" rev="5.1.9"/>
-		<dependency org="org.apache.commons" name="commons-dbcp2" rev="2.0"/>
-		<dependency org="org.springframework" name="spring-orm" rev="3.0.7.RELEASE" conf="default"/>
-		<dependency org="org.springframework" name="spring-core" rev="3.0.7.RELEASE" conf="default"/>
+
+		<dependency org="mysql" name = "mysql-connector-java" rev="5.1.9" conf="default"/>
+		<dependency org="commons-dbcp" name="commons-dbcp" rev="1.4"/>
+		<dependency org="org.hibernate" name = "hibernate-core" rev="4.1.9.Final"/>
+				<!-- 
 		<dependency org="org.springframework" name="spring-web" rev="3.0.7.RELEASE" conf="default"/>
 		<dependency org="org.springframework" name="spring-aop" rev="3.0.7.RELEASE" conf="default"/>
 		 -->
